@@ -200,3 +200,5 @@ class King(Piece):
     def set_position(self, position):
         # set the position of the king
         pass
+
+# Path: Model\GameState.py
