@@ -1,0 +1,47 @@
+
+{
+    "pieces_path": "view/images/PNGs/No-shadow/256h/",
+    "pieces": [
+        "Bishop",
+        "King",
+        "Knight",
+        "Pawn",
+        "Queen",
+        "Rook"
+    ],
+
+    "piece-colors": [
+        "Black",
+        "White"
+    ],
+    "extensions": [
+        "png"
+    ],
+    "square_path": "images/board-squares/",
+    "square-color": [
+        "dark",
+        "light"
+    ],
+    "square-extensions": [
+        "png",
+        "svg"
+    ],
+    "abbreviation": {
+        "Bishop": "B",
+        "King": "K",
+        "Knight": "N",
+        "Pawn": "P",
+        "Queen": "Q",
+        "Rook": "R"
+    },
+    "piece-colors-abbreviation": {
+        "Black": "b",
+        "White": "w"
+    },
+    "square-color-abbreviation": {
+        "dark": "d",
+        "light": "l"
+    }
+
+}
+
