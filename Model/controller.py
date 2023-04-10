@@ -7,7 +7,7 @@ def get_game_board(game_state: GameState)->list[list[str]]:
         game_state = GameState(None)
 
     squares = game_state.get_board().get_squares()
-    squares = shuffler(game_state)
+    #squares = shuffler(game_state)
     # convert the squares to a list of strings
     board = [['']*8 for i in range(8)]
     for i in range(8):
