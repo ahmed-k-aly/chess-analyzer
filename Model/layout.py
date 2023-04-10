@@ -1,8 +1,8 @@
 # class for chess grid
-from Model.Pieces import Piece
+from pieces import Piece
 class Layout:
     def __init__(self):
-        self.squares = []
+        self.squares = [[i]*8 for i in range(8)]
         self.setup_board()
 
     def setup_board(self):
@@ -10,20 +10,18 @@ class Layout:
         # and pieces in the correct positions
         for i in range(8):
             for j in range(8):
-                if (i + j) % 2 == 0:
-                    self.squares.append(Square('white', (i, j)))
+                if (i+j) % 2 == 0:
+                    self.squares[i][j] = Square('white', (i, j))
                 else:
-                    self.squares.append(Square('black', (i, j)))
+                    self.squares[i][j] = Square('black', (i, j))
                     
                     
     def get_square(self, position):
-        # return the square at the given position
-        for square in self.squares:
-            if square.get_position() == position:
-                return square
-        return None
+        # return the square at the given position. Constant Time
+        return self.squares[position[0]][position[1]]
 
     def get_squares(self):
+        # return all the squares on the board
         return self.squares
     
     
@@ -47,12 +45,19 @@ class Layout:
         board = ''
         for i in range(8):
             for j in range(8):
-                if self.get_square((i, j)).piece:
-                    board += self.get_square((i, j)).piece.get_piece_type()[0]
-                else:
-                    board += ' '
-            board += ','
+                board += str(self.squares[i][j]) + ' '
         return board
+
+    def pretty_print(self):
+        # print the board in a more readable format in ASCII chess
+        # print bounds
+        print('  a   b   c   d   e   f   g   h  ')
+        for i in range(8):
+            print(i+1, end=' ')
+            for j in range(8):
+                print(self.squares[i][j], end=' ')
+            print('')
+        print('  a   b   c   d   e   f   g   h  ')
 
 class Square:
     
@@ -64,9 +69,16 @@ class Square:
         self.isEmpty = True
     
     
-    def set_piece(self, piece: Piece):
+    def setPiece(self, piece: Piece):
         self.piece = piece
         self.isEmpty = False
+    
+    def removePiece(self):
+        self.piece = None
+        self.isEmpty = True
+    
+    def swapPiece(self, piece: Piece):
+        self.piece = piece
     
     def highlight(self):
         self.highlighted = True
@@ -74,8 +86,11 @@ class Square:
     def unhighlight(self):
         self.highlighted = False
     
-    def get_color(self):
+    def getColor(self):
         return self.color
 
-    def get_position(self):
+    def getPosition(self):
         return self.position
+    
+    def __str__(self):
+        return str(self.piece) if self.piece else ''

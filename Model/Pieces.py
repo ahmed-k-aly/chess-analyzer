@@ -1,5 +1,3 @@
-from Model.GameState import GameState
-
 class Piece:
     # piece class
     def __init__(self, color: int, piece_type: str):
@@ -15,18 +13,14 @@ class Piece:
     def get_piece_type(self)->str:
         return self.piece_type
     
-    def get_piece_name(self)->str:
-        return self.piece_type + '_' + self.color + '_' + self.id
-    
-    def get_legal_moves(self, game_state: GameState):
-        # return a list of legal moves for the piece (implemented in subclasses)
-        pass
+    def __str__(self):
+        return str(self.color) + self.piece_type
     
     def get_value(self):
         # return the value of the piece (implemented in subclasses)
         pass 
     
-    def possible_moves(self):
+    def possible_moves(self, pos: tuple):
         # return a list of all possible moves for the piece based on how it can move (implemented in subclasses)
         pass
     
@@ -45,19 +39,16 @@ class Piece:
 class Pawn(Piece):
     # pawn class
     def __init__(self, color: int, id: int):
-        super().__init__(color, 'pawn')
+        super().__init__(color, 'p')
         self.id = id
         self.has_moved = False
     
-    def get_legal_moves(self, game_state: GameState):
-        # return a list of legal moves for the pawn
-        pass
     
     def get_value(self):
         # return the value of the pawn
         return 1
     
-    def possible_moves(self):
+    def possible_moves(self, pos: tuple):
         # return a list of all possible moves for the pawn based on how it can move
         pass
     
@@ -72,18 +63,14 @@ class Pawn(Piece):
 class Knight(Piece):
     # knight class
     def __init__(self, color: int, id: int):
-        super().__init__(color, 'knight')
+        super().__init__(color, 'n')
         self.id = id
-    
-    def get_legal_moves(self, game_state: GameState):
-        # return a list of legal moves for the knight
-        pass
     
     def get_value(self):
         # return the value of the knight
         return 3
     
-    def possible_moves(self):
+    def possible_moves(self, pos: tuple):
         # return a list of all possible moves for the knight based on how it can move
         pass
     
@@ -98,18 +85,14 @@ class Knight(Piece):
 class Bishop(Piece):
     # bishop class
     def __init__(self, color: int, id: int):
-        super().__init__(color, 'bishop')
+        super().__init__(color, 'b')
         self.id = id
-    
-    def get_legal_moves(self, game_state: GameState):
-        # return a list of legal moves for the bishop
-        pass
     
     def get_value(self):
         # return the value of the bishop
         return 3
     
-    def possible_moves(self):
+    def possible_moves(self, pos: tuple):
         # return a list of all possible moves for the bishop based on how it can move
         pass
     
@@ -124,26 +107,22 @@ class Bishop(Piece):
 class Rook(Piece):
     # rook class
     def __init__(self, color: int, id: int):
-        super().__init__(color, 'rook')
+        super().__init__(color, 'r')
         self.id = id
         self.has_moved = False
-    
-    def get_legal_moves(self, game_state: GameState):
-        # return a list of legal moves for the rook
-        pass
     
     def get_value(self):
         # return the value of the rook
         return 5
-    
-    def possible_moves(self):
+
+    def possible_moves(self, pos: tuple):
         # return a list of all possible moves for the rook based on how it can move
         pass
-    
+
     def get_position(self):
         # return the position of the rook
         pass
-    
+
     def set_position(self, position):
         # set the position of the rook
         pass
@@ -151,18 +130,15 @@ class Rook(Piece):
 class Queen(Piece):
     # queen class
     def __init__(self, color: int, id: int):
-        super().__init__(color, 'queen')
+        super().__init__(color, 'q')
         self.id = id
-    
-    def get_legal_moves(self, game_state: GameState):
-        # return a list of legal moves for the queen
-        pass
+
     
     def get_value(self):
         # return the value of the queen
         return 9
     
-    def possible_moves(self):
+    def possible_moves(self, pos: tuple):
         # return a list of all possible moves for the queen based on how it can move
         pass
     
@@ -177,19 +153,15 @@ class Queen(Piece):
 class King(Piece):
     # king class
     def __init__(self, color: int, id: int):
-        super().__init__(color, 'king')
+        super().__init__(color, 'k')
         self.id = id
         self.has_moved = False
-    
-    def get_legal_moves(self, game_state: GameState):
-        # return a list of legal moves for the king
-        pass
     
     def get_value(self):
         # return the value of the king
         return float('inf')
     
-    def possible_moves(self):
+    def possible_moves(self, pos: tuple):
         # return a list of all possible moves for the king based on how it can move
         pass
     
