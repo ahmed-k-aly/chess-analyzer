@@ -58,14 +58,19 @@ class Layout:
                 print(self.squares[i][j], end=' ')
             print('')
         print('  a   b   c   d   e   f   g   h  ')
-        
-    def make_move(self, move:str):
-        # move is a string in the form of 'e4 e5'
-        # 1. find the piece that is moving
-        # 2. move the piece to the new square
-        # 3. remove the piece from the old square
-        # 4. if the piece is a pawn, check if it has reached the end of the board
-        pass
+    
+    def convert_to_positions(self):
+        # output the board as a list of piece strings based on their position
+        # used for the neural network
+        board = [['']*8 for i in range(8)]
+        for i in range(8):
+            for j in range(8):
+                if self.squares[i][j].piece:
+                    string = str(self.squares[i][j])
+                    board[i][j] = (string[1]).upper() if string[0] == 'w' else (string[1]).lower()
+                else:
+                    board[i][j] = ''
+        return board
 class Square:
     
     def __init__(self, color, position):

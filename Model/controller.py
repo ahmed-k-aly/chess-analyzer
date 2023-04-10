@@ -1,5 +1,6 @@
 from Model.gameState import GameState
 import random
+from Model.utils import *
 class Controller:
     def __init__(self):
         self.game_state = None
@@ -20,58 +21,31 @@ class Controller:
         self.game_state = self.game_state.get_next_state(move)
         return self.game_state
     
-    def get_game_board(self, game_state: GameState)->list[list[str]]:
+    def get_game_board_extended(self, game_state: GameState)->list[list[str]]:
+        
         # returns a dict for what is on each squar
         if not game_state:
             # create a new game state
             game_state = GameState(None)
-
-        squares = game_state.get_board().get_squares()
-        squares = self.shuffler(game_state)
+        squares = game_state.get_board()
+        positions = squares.convert_to_positions()
+        fen = board_to_fen(positions)
+        print(fen)
+        quit()
+        squares = shuffler(squares)
         # convert the squares to a list of strings
         board = [['']*8 for i in range(8)]
         for i in range(8):
             for j in range(8):
                 if squares[i][j].piece:
                     string = str(squares[i][j])
-                    board[i][j] = string[0] + '_' + self.expand_piece_name(string[1])
+                    board[i][j] = string[0] + '_' + expand_piece_name(string[1])
                 else:
                     board[i][j] = ''
         return board
-
-    def expand_piece_name(self, piece_name: str)->str:
-        # expand the piece name to the full name
-        if piece_name == 'k':
-            return 'king'
-        elif piece_name == 'q':
-            return 'queen'
-        elif piece_name == 'r':
-            return 'rook'
-        elif piece_name == 'b':
-            return 'bishop'
-        elif piece_name == 'n':
-            return 'knight'
-        elif piece_name == 'p':
-            return 'pawn'
-        else:
-            return ''
-        
-    def shuffler(self, game_state: GameState):
-        # shuffle the board
-        # for every piece on the board, move it to a random square
-        # if the square is occupied, swap the pieces
-        # this is a good way to test the game
-        squares = game_state.get_board().get_squares()
-        for i in range(8):
-            for j in range(8):
-                if squares[i][j].piece:
-                    # move the piece to a random square
-                    piece = squares[i][j].piece
-                    # get a random square
-                    random_i = random.randint(0, 7)
-                    random_j = random.randint(0, 7)
-                    # swap the pieces
-                    temp_piece = squares[random_i][random_j].piece
-                    squares[random_i][random_j].piece = piece
-                    squares[i][j].piece = temp_piece
-        return squares
+    
+    def convert_to_fen(self, game_state: GameState)->str:
+        # convert the game state to a FEN string
+        print(game_state.get_board().get_squares())
+        return board_to_fen(game_state.get_board().get_squares())
+    

@@ -66,7 +66,7 @@ class Board:
             self.draw_pieces()
             pygame.display.update()
             # shuffle layout list randomly to test
-            self.layout = controller.get_game_board(None)
+            self.layout = controller.get_game_board_extended(None)
             # clear the pieces from the screen
             self.screen.fill('#1B0000')
             time.sleep(1/60)
@@ -77,6 +77,6 @@ sys.path.insert(0, 'C:\\Users\\nitro\\Documents\\Coding\\chess-analyzer')
 from Model import controller
 controller = controller.Controller()
 screen = pygame.display.set_mode((1000, 700))
-layout = controller.get_game_board(None)
+layout = controller.get_game_board_extended(None)
 board = Board(screen, layout)
 board.draw()
