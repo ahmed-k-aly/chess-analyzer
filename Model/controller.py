@@ -1,9 +1,11 @@
 from Model.gameState import GameState
 import random
+from Model.layout import Layout
 from Model.utils import *
 class Controller:
     def __init__(self):
         self.game_state = None
+        self.FEN = "6k1/6p1/7p/3R3P/4QP2/1p2PK2/3r4/8 b - - 0 52"
     
     def create_game_state(self, PGN=None):
         # create a new game state
@@ -27,12 +29,14 @@ class Controller:
         if not game_state:
             # create a new game state
             game_state = GameState(None)
-        squares = game_state.get_board()
-        positions = squares.convert_to_positions()
-        fen = board_to_fen(positions)
-        print(fen)
-        quit()
-        squares = shuffler(squares)
+            
+        board = self.convert_fen_to_game_state(self.FEN)
+        print(board)
+        squares = Layout()
+
+        squares.convert_to_squares(board)
+        squares = squares.squares
+        
         # convert the squares to a list of strings
         board = [['']*8 for i in range(8)]
         for i in range(8):
@@ -46,6 +50,10 @@ class Controller:
     
     def convert_to_fen(self, game_state: GameState)->str:
         # convert the game state to a FEN string
-        print(game_state.get_board().get_squares())
-        return board_to_fen(game_state.get_board().get_squares())
+        positions = game_state.get_board().convert_to_positions()
+        return board_to_fen(positions)
     
+    def convert_fen_to_game_state(self, FEN: str)->GameState:
+        # convert a FEN string to a game state
+        board = fen_to_board(FEN)
+        return board

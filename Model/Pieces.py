@@ -13,6 +13,7 @@ class Piece:
     def get_piece_type(self)->str:
         return self.piece_type
     
+    
     def __str__(self):
         return str(self.color) + self.piece_type
     

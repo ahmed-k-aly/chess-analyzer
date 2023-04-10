@@ -49,6 +49,20 @@ def board_to_fen(position):
     return fen
 
 
+def fen_to_board(fen):
+    board = []
+    rows = fen.split()[0].split('/')
+    for row in rows:
+        board_row = []
+        for char in row:
+            if char.isdigit():
+                board_row.extend([''] * int(char))
+            else:
+                board_row.append(char)
+        board.append(board_row)
+    return board
+
+
 
 def expand_piece_name(piece_name: str)->str:
         # expand the piece name to the full name

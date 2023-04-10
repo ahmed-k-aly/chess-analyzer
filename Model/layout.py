@@ -1,5 +1,5 @@
 # class for chess grid
-from Model.pieces import Piece
+from Model.pieces import Piece, Pawn, Rook, Knight, Bishop, Queen, King
 class Layout:
     def __init__(self):
         self.squares = [[i]*8 for i in range(8)]
@@ -71,6 +71,27 @@ class Layout:
                 else:
                     board[i][j] = ''
         return board
+    
+    def convert_to_squares(self, positions):
+        # convert a list of piece strings to a board
+        # used for the neural network
+        piecesDict = {  'p': Pawn(None, None),
+                        'r': Rook(None, None),
+                        'n': Knight(None, None),
+                        'b': Bishop(None, None),
+                        'q': Queen(None, None),
+                        'k': King(None, None)
+}
+        for i in range(8):
+            for j in range(8):
+                if positions[i][j]:
+                    color = 'w' if positions[i][j].isupper() else 'b'
+                    piece = piecesDict[positions[i][j].lower()]
+                    piece.color = color
+                    self.squares[i][j].setPiece(piece)
+                else:
+                    self.squares[i][j].removePiece()
+
 class Square:
     
     def __init__(self, color, position):
