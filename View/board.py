@@ -75,6 +75,7 @@ class Board:
 # adding Model to the system path
 sys.path.insert(0, 'C:\\Users\\nitro\\Documents\\Coding\\chess-analyzer')
 from Model import controller
+controller = controller.Controller()
 screen = pygame.display.set_mode((1000, 700))
 layout = controller.get_game_board(None)
 board = Board(screen, layout)

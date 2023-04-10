@@ -43,10 +43,34 @@ class GameState:
         self.board = Layout()
         self.place_pieces()
         
-    def get_next_state(self, move):
+    def get_next_state(self, move: str):
         # return the next state of the game based on the move
-        pass
-    
+        legal = move in self.get_legal_moves()
+        if not legal:
+            raise Exception('Illegal move')
+        # make the move
+        self.make_move(move)
+        # update the turn
+        self.turn = 'b' if self.turn == 'w' else 'w'
+        self.numTurns += 1
+        # update the game state
+        self.isCheck = self.board.is_check(self.turn)
+        self.isCheckmate = self.board.is_checkmate(self.turn)
+        self.isStalemate = self.board.is_stalemate(self.turn)
+        return self
+
+
+    def make_move(self, move: str):
+        # make the move
+        # get the piece type
+        piece = move[0] if move[0].isupper() else 'p'
+        # get the piece color
+        color = self.turn
+        isCapture = 'x' in move
+        # get the destination square
+        dest = move[-2:]
+
+
     def get_game_state(self):
         # return the current state of the game
         return self
@@ -64,4 +88,3 @@ class GameState:
         if self.board == None:
             self.init_board()
         return self.board
-    

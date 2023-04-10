@@ -58,7 +58,14 @@ class Layout:
                 print(self.squares[i][j], end=' ')
             print('')
         print('  a   b   c   d   e   f   g   h  ')
-
+        
+    def make_move(self, move:str):
+        # move is a string in the form of 'e4 e5'
+        # 1. find the piece that is moving
+        # 2. move the piece to the new square
+        # 3. remove the piece from the old square
+        # 4. if the piece is a pawn, check if it has reached the end of the board
+        pass
 class Square:
     
     def __init__(self, color, position):
@@ -79,6 +86,9 @@ class Square:
     
     def swapPiece(self, piece: Piece):
         self.piece = piece
+    
+    def swapSquarePiece(self, square):
+        self.piece, square.piece = square.piece, self.piece
     
     def highlight(self):
         self.highlighted = True
