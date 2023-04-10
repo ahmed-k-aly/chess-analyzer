@@ -15,33 +15,53 @@ class Board:
         self.board_height = 600
         self.board_x = 200
         self.board_y = 50
-        self.board_color = (200, 200, 200)
-        self.board_outline_color = (0, 0, 0)
+        self.board_color = (255, 255, 255)
+        self.board_outline_color = (200, 200, 200)
         self.board_outline_width = 5
         self.board_square_width = self.board_width / 8
         self.board_square_height = self.board_height / 8
-        self.board_square_color = (0, 0, 0)
-        self.board_square_outline_color = (0, 0, 0)
-        self.board_square_outline_width = 1
         self.pieces = json.load(open('view/constants.json'))['pieces']
         self.pieces_path = json.load(open('view/constants.json'))['pieces_path']
         
+        
+    
     def draw_board(self):
-        self.board_rect = pygame.draw.rect(self.screen, self.board_color, (self.board_x, self.board_y, self.board_width, self.board_height))
-        self.board_outline_rect = pygame.draw.rect(self.screen, self.board_outline_color, (self.board_x - self.board_outline_width, self.board_y - self.board_outline_width, self.board_width + self.board_outline_width * 2, self.board_height + self.board_outline_width * 2))
-        self.board_squares = []
+        screen.fill('#1B0000')
+        # function that draws the board
+        # draw the board outline
+        board_outline = (self.board_x-3, self.board_y-3, self.board_width+6, self.board_height+6)
+        board_outline_rect = pygame.draw.rect(self.screen, self.board_outline_color, board_outline, self.board_outline_width)
+        # fill rectangle with color
+        board_rect = pygame.draw.rect(self.screen, self.board_color, (self.board_x, self.board_y, self.board_width, self.board_height))
+        # draw the board squares
         for i in range(8):
             for j in range(8):
-                self.board_squares.append(pygame.draw.rect(self.screen, self.board_square_color, (self.board_x + i * self.board_square_width, self.board_y + j * self.board_square_height, self.board_square_width, self.board_square_height)))
-                self.board_squares.append(pygame.draw.rect(self.screen, self.board_square_outline_color, (self.board_x + i * self.board_square_width, self.board_y + j * self.board_square_height, self.board_square_width, self.board_square_height), self.board_square_outline_width))
-    
-    def draw_pieces(self):
-        self.pieces_images = []
-        for piece in self.board:
-            self.pieces_images.append(pygame.image.load(os.path.join(self.pieces_path, self.pieces[piece])))
-        for i in range(len(self.board)):
-            self.screen.blit(self.pieces_images[i], (self.board_x + (i % 8) * self.board_square_width, self.board_y + math.floor(i / 8) * self.board_square_height)) 
+                if (i + j) % 2 == 0:
+                    square_color = (255, 255, 255)
+                else:
+                    square_color = (0, 0, 0)
+                square = (self.board_x + i * self.board_square_width, self.board_y + j * self.board_square_height, self.board_square_width, self.board_square_height)
+                square_rect = pygame.draw.rect(self.screen, square_color, square)
 
+
+    def draw_pieces(self):
+        # function that draws the pieces
+        # draw the pieces
+        for i in range(8):
+            for j in range(8):
+                piece_image = pygame.image.load(self.pieces_path + 'w_king_1x.png')
+                piece_image = pygame.transform.scale(piece_image, (int(self.board_square_width), int(self.board_square_height)))
+                self.screen.blit(piece_image, (self.board_x + i * self.board_square_width, self.board_y + j * self.board_square_height))
+
+        
+        
+        
     def draw(self):
-        self.draw_board()
-        self.draw_pieces()
+        while True:
+            self.draw_board()
+            self.draw_pieces()
+            pygame.display.update()
+
+screen = pygame.display.set_mode((1000, 700))
+board = Board(screen, None)
+board.draw()

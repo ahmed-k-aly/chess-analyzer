@@ -1,6 +1,6 @@
 
 {
-    "pieces_path": "view/images/PNGs/No-shadow/256h/",
+    "pieces_path": "view/images/PNGs/With Shadow/1x/",
     "pieces": [
         "Bishop",
         "King",
@@ -17,7 +17,8 @@
     "extensions": [
         "png"
     ],
-    "square_path": "images/board-squares/",
+    "theme": "brown",
+    "square_path": "view/images/board-squares/",
     "square-color": [
         "dark",
         "light"
