@@ -28,7 +28,7 @@ class Board:
         
     
     def draw_board(self):
-        screen.fill('#1B0000')
+        self.screen.fill('#1B0000')
         # function that draws the board
         # draw the board outline
         board_outline = (self.board_x-3, self.board_y-3, self.board_width+6, self.board_height+6)
@@ -75,8 +75,8 @@ class Board:
 # adding Model to the system path
 sys.path.insert(0, 'C:\\Users\\nitro\\Documents\\Coding\\chess-analyzer')
 from Model import controller
-controller = controller.Controller()
-screen = pygame.display.set_mode((1000, 700))
-layout = controller.get_game_board_extended(None)
-board = Board(screen, layout)
-board.draw()
+# controller = controller.Controller()
+# screen = pygame.display.set_mode((1000, 700))
+# layout = controller.get_game_board_extended(None)
+# board = Board(screen, layout)
+# board.draw()

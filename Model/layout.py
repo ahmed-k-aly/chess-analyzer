@@ -75,22 +75,27 @@ class Layout:
     def convert_to_squares(self, positions):
         # convert a list of piece strings to a board
         # used for the neural network
-        piecesDict = {  'p': Pawn(None, None),
-                        'r': Rook(None, None),
-                        'n': Knight(None, None),
-                        'b': Bishop(None, None),
-                        'q': Queen(None, None),
-                        'k': King(None, None)
-}
+        piecesDict = {  'p': "Pawn",
+                        'r': "Rook",
+                        'n': "Knight",
+                        'b': "Bishop",
+                        'q': "Queen",
+                        'k': "King"
+        }
         for i in range(8):
             for j in range(8):
                 if positions[i][j]:
-                    color = 'w' if positions[i][j].isupper() else 'b'
-                    piece = piecesDict[positions[i][j].lower()]
-                    piece.color = color
+                    if positions[i][j].isupper():
+                        color = 'w'
+                    else:
+                        color = 'b'
+                    piece_class = piecesDict[positions[i][j].lower()]
+                    # create a new piece by calling the class using the piece_class string
+                    piece = globals()[piece_class](color, 1)
                     self.squares[i][j].setPiece(piece)
                 else:
                     self.squares[i][j].removePiece()
+        print("board: {}".format(self))
 
 class Square:
     

@@ -3,9 +3,9 @@ import random
 from Model.layout import Layout
 from Model.utils import *
 class Controller:
-    def __init__(self):
+    def __init__(self, FEN =  "6k1/6p1/7p/3R3P/4QP2/1p2PK2/3r4/8 b - - 0 52" ):
         self.game_state = None
-        self.FEN = "6k1/6p1/7p/3R3P/4QP2/1p2PK2/3r4/8 b - - 0 52"
+        self.FEN = FEN
     
     def create_game_state(self, PGN=None):
         # create a new game state
@@ -28,14 +28,9 @@ class Controller:
         # returns a dict for what is on each squar
         if not game_state:
             # create a new game state
-            game_state = GameState(None)
+            self.game_state = GameState(None)
             
-        board = self.convert_fen_to_game_state(self.FEN)
-        print(board)
-        squares = Layout()
-
-        squares.convert_to_squares(board)
-        squares = squares.squares
+        squares = self.game_state.get_board().squares
         
         # convert the squares to a list of strings
         board = [['']*8 for i in range(8)]
