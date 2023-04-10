@@ -1,6 +1,6 @@
 # chess game state class
-from pieces import *
-from layout import Layout
+from Model.pieces import *
+from Model.layout import Layout
 
 class GameState:
     def __init__(self, PGN):

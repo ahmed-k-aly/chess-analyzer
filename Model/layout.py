@@ -1,5 +1,5 @@
 # class for chess grid
-from pieces import Piece
+from Model.pieces import Piece
 class Layout:
     def __init__(self):
         self.squares = [[i]*8 for i in range(8)]
