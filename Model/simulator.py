@@ -8,6 +8,11 @@ from View.board import Board
 from Model.layout import Layout, Square
 # Load PGN file
 
+# ENTRY POINT FILE
+
+#TODO: ADD THIS TO THE CONTROLLER. ENSURE THAT THE CONTROLLER IS ABLE TO HANDLE THE GAME STATE. NAME THINGS ACCORDINGLY
+#TODO: DECOMPOSE THE GAME INTO A DIFFERERNT FILE AND ONLY EXPORT MOVES. THIS FILE JUST GETS A BOARD FROM MODEL AND CALLS THE VIEW TO DRAW IT.
+
 # adding Model to the system path
 controller = Controller()
 screen = pygame.display.set_mode((1000, 700))
