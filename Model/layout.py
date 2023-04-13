@@ -95,7 +95,6 @@ class Layout:
                     self.squares[i][j].setPiece(piece)
                 else:
                     self.squares[i][j].removePiece()
-        print("board: {}".format(self))
 
 class Square:
     

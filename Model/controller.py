@@ -48,7 +48,7 @@ class Controller:
         positions = game_state.get_board().convert_to_positions()
         return board_to_fen(positions)
     
-    def convert_fen_to_game_state(self, FEN: str)->GameState:
+    def convert_fen_to_game_state(self, FEN: str)-> list[list[str]]:
         # convert a FEN string to a game state
         board = fen_to_board(FEN)
         return board
