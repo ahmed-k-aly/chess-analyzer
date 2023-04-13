@@ -69,7 +69,7 @@ def simulate_move(move: chess) -> Layout:
     # get the layout from the game state
     layout: Layout = controller.game_state.board
     layout.convert_to_squares(positions) # simulates the move in the layout
-    UIboard.layout = controller.get_game_board_extended(controller.game_state)
+    UIboard.layout = controller.get_board()
 
 
 def render_board():
