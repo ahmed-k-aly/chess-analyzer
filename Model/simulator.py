@@ -1,18 +1,21 @@
 import time
 import chess.pgn
 import sys
+
 sys.path.insert(0, 'C:\\Users\\nitro\\Documents\\Coding\\chess-analyzer')
 import pygame
 from Model.controller import Controller
 from View.board import Board
 from Model.layout import Layout, Square
+from Model.analyzer import Analyzer
+
 # Load PGN file
 
 
 # ENTRY POINT FILE
 
 # CONSTANTS
-FPS = 60
+FPS = 10
 
 #TODO: ADD THIS TO THE CONTROLLER. ENSURE THAT THE CONTROLLER IS ABLE TO HANDLE THE GAME STATE. NAME THINGS ACCORDINGLY
 #TODO: DECOMPOSE THE GAME INTO A DIFFERERNT FILE AND ONLY EXPORT MOVES. THIS FILE JUST GETS A BOARD FROM MODEL AND CALLS THE VIEW TO DRAW IT.
@@ -39,9 +42,6 @@ def go():
         render_board()
 
 
-
-
-
 def init_game():
     # initalizing everything
     global controller 
@@ -50,11 +50,12 @@ def init_game():
     global UIboard
     global game # the read game from the pgn file
     global board # the board from the chess.pgn module
+    global stockfish
     controller = Controller()
     screen = pygame.display.set_mode((1000, 700))
     layout = controller.get_game_board_extended(None)
     UIboard = Board(screen, layout)
-  
+    stockfish = Analyzer()
     with open('Model/game') as f:
         game = chess.pgn.read_game(f)
     # Access moves from the game
@@ -63,6 +64,7 @@ def init_game():
 
 def simulate_move(move: chess) -> Layout:
     # simulates a move, where the move is in PGN notation and returns the new board state
+    fen_old = board.fen()
     board.push(move)
     fen = board.fen()
     positions = controller.convert_fen_to_game_state(fen)
@@ -71,6 +73,9 @@ def simulate_move(move: chess) -> Layout:
     layout.convert_to_squares(positions) # simulates the move in the layout
     UIboard.layout = controller.get_board()
 
+    # analyze the move
+    # score = stockfish.analyze_move(fen_old, fen, board.turn == chess.WHITE)
+    # print("score: ", score)
 
 def render_board():
     # we draw the board here
@@ -79,7 +84,7 @@ def render_board():
     pygame.display.update()
     # clear the pieces from the screen
     UIboard.screen.fill('#1B0000')
-    time.sleep(1/FPS)
+    #time.sleep(1/FPS)
 
 # # Access FEN notation of current position
 # fen = board.fen()
